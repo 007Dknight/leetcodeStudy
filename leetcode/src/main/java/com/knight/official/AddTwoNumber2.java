@@ -16,7 +16,7 @@ import java.util.List;
  * @author: create by knight007
  * @version: v1.0
  * @description: com.knight.official
- * @date:2019/4/29 23:38
+ * @date:2019/4/29 23:38，改于2019-05-11 晚上
  */
 //Definition for singly-linked list.
 class ListNode {
@@ -26,6 +26,8 @@ class ListNode {
     ListNode(int x) {
         val = x;
     }
+
+
 
     @Override
     public String toString() {
@@ -38,34 +40,43 @@ class ListNode {
 
 public class AddTwoNumber2 {
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        if(l1 == null && l2 == null)    return null;
+
         if(l1 == null)  return l2;
         if(l2 == null)  return l1;
+        ListNode p = l1;
+        ListNode q = l2;
         //now，start add
-        ListNode result = new ListNode(l1.val + l2.val);
-        ListNode l1Next = l1.next;
-        ListNode l2Next = l2.next;
-        ListNode resultNext = null;
-        while (l1Next != null || l2Next != null){
-            if(l1Next == null){
-                resultNext = new ListNode(l2Next.val);
-                l2Next = l2Next.next;
-            }else if(l2Next == null){
-                resultNext = new ListNode(l1Next.val);
-                l1Next = l1Next.next;
+        ListNode result = new ListNode(0);
+        ListNode temp = result;
+        int sum = 0;
+        while (p != null || q != null || sum != 0){
+            if(p == null && q == null){
+                sum = sum;
+            }else if(p == null){
+                sum = q.val + sum;
+            }else if(q == null){
+               sum = p.val + sum;
             }else {
-                resultNext = new ListNode(l1Next.val + l2Next.val);
-                l1Next = l1Next.next;
-                l2Next = l2Next.next;
+                sum = sum + p.val + q.val;
             }
-            resultNext = resultNext.next;
+            if(sum > 9){
+                temp.next  = new ListNode(sum%10);
+                sum = sum / 10;
+            }else {
+                temp.next = new ListNode(sum);
+                sum = 0;
+            }
+            temp = temp.next;
+            p = (p != null ? p.next : null);
+            q = (q != null ? q.next : null);
+
         }
-        result.next =resultNext;
-        return result;
+//        System.err.println(result);
+        return result.next;
     }
 
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(2);
+        ListNode l1 = new ListNode(5);
         l1.next = new ListNode(4);
         l1.next.next = new ListNode(3);
 
