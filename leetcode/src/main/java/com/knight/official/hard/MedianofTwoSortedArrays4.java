@@ -47,8 +47,8 @@ public class MedianofTwoSortedArrays4 {
     }
 
     public static void main(String[] args) {
-        int[] a = new int[]{1,3};
-        int[] b = new int[]{2};
+        int[] a = new int[]{1,2};
+        int[] b = new int[]{3,4};
         System.out.println(findMedianSortedArrays(a,b));
     }
 }
