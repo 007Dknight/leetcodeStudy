@@ -24,48 +24,32 @@ package com.knight.official.medium;
 //todo
 public class DivideTwoIntegers29 {
     public static int divide(int dividend, int divisor) {
-        if (dividend == 0 || divisor == 0 ) return 0;
-        if (dividend == divisor) return 1;
-        int i = 0;
-        int temp = dividend;
-        int target = divisor;
-        if(dividend > divisor){
-            if(divisor > 0){
-                while (temp >= target){
-                    temp -= target;
-                    i++;
-                }
-                return i;
-            }else if(dividend < 0){
-                return 0;
-            }else {
-                //dividend >0 and divisor <0
-                //then dividend need add divisor to 0
-                while (temp >= 0){
-                    temp += target;
-                    i--;
-                }
-                return i+1;
-            }
-        }else {
-            if(dividend > 0){
-                return 0;
-            }else if(divisor < 0){
-                // dividend and divisor both < 0
-                while (temp <= target){
-                    temp -= target;
-                    i++;
-                }
-                return i;
-            }else {
-                //divisor > 0 and dividend < 0
-                while (temp <= 0){
-                    temp += target;
-                    i--;
-                }
-                return i+1;
-            }
+        if(dividend == 0 || divisor == 0) return 0;
+        if(divisor == 1) return dividend;
+        if(divisor == -1) return (int) (0-new Long(dividend));
+        if(dividend == divisor) return 1;
+        boolean flag = false;
+        if(dividend < 0 && divisor > 0){
+            dividend = 0-dividend;
+            flag = true;
+        }else if(dividend > 0 &&divisor < 0){
+            divisor = 0-divisor;
+            flag = true;
+        } else if(dividend < 0 && divisor < 0){
+            dividend = 0-dividend;
+            divisor = 0-divisor;
         }
+
+        int index = 0;
+        //这时候大家都是正数了
+        while (dividend > divisor){
+            dividend = dividend - divisor;
+            index++;
+        }
+        if(flag){
+            return 0-index;
+        }
+        return index;
 
     }
 
@@ -74,5 +58,6 @@ public class DivideTwoIntegers29 {
         int j = -1;
         System.out.println(divide(i, j));
 //        System.out.println(~i);
+        System.out.println(0 - new Long(i));
     }
 }
